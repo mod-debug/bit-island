@@ -492,28 +492,15 @@ export class AutoVaultService {
         return this.#provider!.getPublicKeyInfo(str, isContract);
     }
 
-    async #waitForTx(txId: string, intervalMs = 5000): Promise<void> {
-        // Record block at poll start — fallback if receipt lookup fails (txid format mismatch)
-        let startBlock: bigint | null = null;
-        try {
-            startBlock = BigInt(await this.#provider!.getBlockNumber());
-        } catch { /* ignore */ }
-
-        for (;;) {
+    async #waitForTx(txId: string, maxAttempts = 60, intervalMs = 5000): Promise<void> {
+        for (let i = 0; i < maxAttempts; i++) {
             await new Promise<void>((resolve) => setTimeout(resolve, intervalMs));
             try {
                 const receipt = await this.#provider!.getTransactionReceipt(txId);
                 if (receipt !== null && receipt !== undefined) return;
-            } catch { /* keep retrying */ }
-
-            // Fallback: if 2+ blocks have passed, the tx is confirmed on-chain
-            if (startBlock !== null) {
-                try {
-                    const current = BigInt(await this.#provider!.getBlockNumber());
-                    if (current >= startBlock + 2n) return;
-                } catch { /* ignore */ }
-            }
+            } catch { /* RPC error — keep retrying */ }
         }
+        throw new Error(`Transaction ${txId} was not confirmed within ${(maxAttempts * intervalMs) / 1000}s`);
     }
 
     #assertInitialized(): void {
