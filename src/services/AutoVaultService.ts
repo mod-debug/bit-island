@@ -492,15 +492,29 @@ export class AutoVaultService {
         return this.#provider!.getPublicKeyInfo(str, isContract);
     }
 
-    async #waitForTx(txId: string, maxAttempts = 60, intervalMs = 5000): Promise<void> {
-        for (let i = 0; i < maxAttempts; i++) {
+    async #waitForTx(txId: string, intervalMs = 5000): Promise<void> {
+        // Record start block — fallback for OPNet testnet where getTransactionReceipt
+        // does not reliably return for Bitcoin txids
+        let startBlock: bigint | null = null;
+        try {
+            startBlock = BigInt(await this.#provider!.getBlockNumber());
+        } catch { /* ignore */ }
+
+        for (;;) {
             await new Promise<void>((resolve) => setTimeout(resolve, intervalMs));
             try {
                 const receipt = await this.#provider!.getTransactionReceipt(txId);
                 if (receipt !== null && receipt !== undefined) return;
-            } catch { /* RPC error — keep retrying */ }
+            } catch { /* keep retrying */ }
+
+            // Fallback: if 3+ blocks have passed the tx has had enough time to confirm
+            if (startBlock !== null) {
+                try {
+                    const current = BigInt(await this.#provider!.getBlockNumber());
+                    if (current >= startBlock + 3n) return;
+                } catch { /* ignore */ }
+            }
         }
-        throw new Error(`Transaction ${txId} was not confirmed within ${(maxAttempts * intervalMs) / 1000}s`);
     }
 
     #assertInitialized(): void {
