@@ -1,0 +1,45 @@
+{
+    "targets": {
+        "otc-escrow": {
+            "outFile": "build/OTCEscrow.wasm",
+            "use": ["abort=src/index/abort"]
+        },
+        "vesting-vault": {
+            "outFile": "build/VestingVault.wasm",
+            "use": ["abort=src/index-vesting/abort"]
+        },
+        "nosmile": {
+            "outFile": "build/NoSmileNFT.wasm",
+            "use": ["abort=src/index-nosmile/abort"]
+        },
+        "nft-escrow": {
+            "outFile": "build/NFTEscrow.wasm",
+            "use": ["abort=src/index-nft-escrow/abort"]
+        },
+        "auto-vault": {
+            "outFile": "build/AutoVault.wasm",
+            "use": ["abort=src/index-autovault/abort"]
+        }
+    },
+    "options": {
+        "transform": "@btc-vision/opnet-transform",
+        "sourceMap": false,
+        "optimizeLevel": 3,
+        "shrinkLevel": 1,
+        "converge": true,
+        "noAssert": false,
+        "enable": [
+            "sign-extension",
+            "mutable-globals",
+            "nontrapping-f2i",
+            "bulk-memory",
+            "simd",
+            "reference-types",
+            "multi-value"
+        ],
+        "runtime": "stub",
+        "memoryBase": 0,
+        "initialMemory": 1,
+        "exportStart": "start"
+    }
+}

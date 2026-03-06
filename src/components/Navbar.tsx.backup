@@ -1,0 +1,58 @@
+import { useWalletConnect } from '@btc-vision/walletconnect';
+import { useTheme } from '../hooks/useTheme.js';
+
+function formatAddress(addr: string): string {
+    return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
+}
+
+export function Navbar(): React.JSX.Element {
+    const { walletAddress, openConnectModal, disconnect, connecting } = useWalletConnect();
+    const { theme, toggleTheme } = useTheme();
+
+    return (
+        <nav className="navbar">
+            <div className="navbar__logo">
+                <span className="navbar__logo-icon">&#128018;</span>
+                <span className="navbar__logo-text">
+                    Monkey <span className="navbar__logo-accent">Island</span>
+                </span>
+            </div>
+
+            <div className="navbar__links">
+                <a href="#browse" className="navbar__link">Browse</a>
+                <a href="#create" className="navbar__link">Post Deal</a>
+                <a href="#my-offers" className="navbar__link">My Deals</a>
+                <a href="#about" className="navbar__link">About</a>
+            </div>
+
+            <div className="navbar__right">
+                <button
+                    className="theme-toggle"
+                    onClick={toggleTheme}
+                    title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                >
+                    {theme === 'dark' ? '\u2600' : '\uD83C\uDF19'}
+                </button>
+                <div className="navbar__wallet">
+                    {walletAddress !== null && walletAddress !== undefined ? (
+                        <div className="wallet-connected">
+                            <span className="wallet-connected__dot" />
+                            <span className="wallet-connected__address">{formatAddress(walletAddress)}</span>
+                            <button className="btn btn--outline btn--sm" onClick={disconnect}>
+                                Disconnect
+                            </button>
+                        </div>
+                    ) : (
+                        <button
+                            className="btn btn--primary"
+                            onClick={openConnectModal}
+                            disabled={connecting}
+                        >
+                            {connecting ? <span className="btn__spinner" /> : 'Connect Wallet'}
+                        </button>
+                    )}
+                </div>
+            </div>
+        </nav>
+    );
+}

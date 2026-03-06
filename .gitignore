@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+*.wasm
+.env
+package-lock.json
+.claude/
+.vercel/
+CLAUDE.md
+contract/.env
+contract/.env-fresh
+contract/.env.*

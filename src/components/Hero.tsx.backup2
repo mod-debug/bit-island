@@ -1,0 +1,119 @@
+import { useEffect, useRef } from 'react';
+
+interface Coin {
+    x: number;
+    y: number;
+    size: number;
+    speed: number;
+    opacity: number;
+    rotation: number;
+    rotationSpeed: number;
+}
+
+function CoinsCanvas(): React.JSX.Element {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (canvas === null) return;
+        const ctx = canvas.getContext('2d');
+        if (ctx === null) return;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const coins: Coin[] = Array.from({ length: 20 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            size: Math.random() * 18 + 8,
+            speed: Math.random() * 1.2 + 0.4,
+            opacity: Math.random() * 0.5 + 0.15,
+            rotation: Math.random() * Math.PI * 2,
+            rotationSpeed: (Math.random() - 0.5) * 0.04,
+        }));
+
+        let animId: number;
+
+        function draw(): void {
+            if (ctx === null || canvas === null) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (const coin of coins) {
+                ctx.save();
+                ctx.globalAlpha = coin.opacity;
+                ctx.translate(coin.x, coin.y);
+                ctx.rotate(coin.rotation);
+                const grad = ctx.createRadialGradient(-coin.size * 0.3, -coin.size * 0.3, 1, 0, 0, coin.size);
+                grad.addColorStop(0, '#ffe066');
+                grad.addColorStop(0.6, '#f7931a');
+                grad.addColorStop(1, '#c45e00');
+                ctx.beginPath();
+                ctx.arc(0, 0, coin.size, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
+                ctx.fill();
+                ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                ctx.font = `bold ${coin.size}px Poppins`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('₿', 0, 1);
+                ctx.restore();
+                coin.y += coin.speed;
+                coin.rotation += coin.rotationSpeed;
+                coin.x += Math.sin(coin.y * 0.01) * 0.5;
+                if (coin.y > canvas.height + coin.size) {
+                    coin.y = -coin.size * 2;
+                    coin.x = Math.random() * canvas.width;
+                }
+            }
+            animId = requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        const onResize = (): void => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', onResize);
+        return () => {
+            cancelAnimationFrame(animId);
+            window.removeEventListener('resize', onResize);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} className="coins-canvas" aria-hidden="true" />;
+}
+
+export function Hero(): React.JSX.Element {
+    return (
+        <section className="hero" id="home">
+            <CoinsCanvas />
+            <div className="hero__content">
+                <div className="hero__badge">Bitcoin L1 &bull; OPNet &bull; Trustless OTC</div>
+                <h1 className="hero__headline">
+                    The Pirate's<br />
+                    <span className="hero__headline-accent">Trading Post</span>
+                </h1>
+                <p className="hero__sub">
+                    The first trustless P2P token swap on Bitcoin L1.<br />
+                    Post a deal. Lock your tokens. Let the Pirate's Code do the rest.
+                </p>
+                <div className="hero__cta-group">
+                    <a href="#browse" className="btn btn--primary btn--lg">
+                        Browse Deals
+                    </a>
+                    <a href="#create" className="btn btn--ghost btn--lg">
+                        Post a Deal
+                    </a>
+                </div>
+                <div className="hero__pills">
+                    <span className="hero__pill">No intermediary</span>
+                    <span className="hero__pill">No custody risk</span>
+                    <span className="hero__pill">Quantum-resistant</span>
+                </div>
+            </div>
+            <div className="hero__scroll-hint" aria-hidden="true">
+                <span className="hero__scroll-arrow" />
+            </div>
+        </section>
+    );
+}

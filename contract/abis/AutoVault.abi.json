@@ -1,0 +1,306 @@
+{
+    "functions": [
+        {
+            "name": "deposit",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "amount",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "shares",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "withdraw",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "shares",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "netAmount",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "compound",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "compounded",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "fundRewards",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "amount",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "BOOL"
+                }
+            ]
+        },
+        {
+            "name": "setRewardRate",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "rate",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "BOOL"
+                }
+            ]
+        },
+        {
+            "name": "setFees",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "newCompoundFeeBps",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "newWithdrawFeeBps",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "BOOL"
+                }
+            ]
+        },
+        {
+            "name": "setFeeRecipient",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "recipient",
+                    "type": "EXTENDED_ADDRESS"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "BOOL"
+                }
+            ]
+        },
+        {
+            "name": "getVaultInfo",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "totalStaked",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "totalShares",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "rewardRate",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "lastCompoundBlock",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "rewardPool",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "compoundFeeBps",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "withdrawFeeBps",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "getUserInfo",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "user",
+                    "type": "ADDRESS"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "shares",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "stakedEquivalent",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "pendingRewardShare",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "getSharePrice",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "pricePerShare",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "getPendingRewards",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "pending",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "getFeeInfo",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "compoundFeeBps",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "withdrawFeeBps",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "feeRecipient",
+                    "type": "EXTENDED_ADDRESS"
+                },
+                {
+                    "name": "totalFeesCollectedMoto",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "totalFeesCollectedPill",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "getTotalFeesCollected",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "totalFees",
+                    "type": "UINT256"
+                }
+            ]
+        }
+    ],
+    "events": []
+}

@@ -1,0 +1,202 @@
+{
+    "functions": [
+        {
+            "name": "createSchedule",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "beneficiary",
+                    "type": "EXTENDED_ADDRESS"
+                },
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "totalAmount",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "cliffBlocks",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "durationBlocks",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "revocable",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "vestingType",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "stepsCount",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "scheduleId",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "claim",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "scheduleId",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "claimed",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "revoke",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "scheduleId",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "BOOL"
+                }
+            ]
+        },
+        {
+            "name": "transferBeneficiary",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "scheduleId",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "newBeneficiary",
+                    "type": "EXTENDED_ADDRESS"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "BOOL"
+                }
+            ]
+        },
+        {
+            "name": "getSchedule",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "scheduleId",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "creator",
+                    "type": "EXTENDED_ADDRESS"
+                },
+                {
+                    "name": "beneficiary",
+                    "type": "EXTENDED_ADDRESS"
+                },
+                {
+                    "name": "token",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "totalAmount",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "claimedAmount",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "startBlock",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "cliffBlocks",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "durationBlocks",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "revocable",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "revoked",
+                    "type": "BOOL"
+                },
+                {
+                    "name": "vestingType",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "stepsCount",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "getNextScheduleId",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "nextId",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "getVestedAmount",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "scheduleId",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "vestedAmount",
+                    "type": "UINT256"
+                }
+            ]
+        }
+    ],
+    "events": []
+}

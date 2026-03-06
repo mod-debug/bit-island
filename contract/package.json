@@ -1,0 +1,29 @@
+{
+    "name": "otc-escrow-contract",
+    "version": "1.0.0",
+    "description": "Monkey Island OTC Escrow — trustless P2P token swaps on Bitcoin L1",
+    "private": true,
+    "scripts": {
+        "build": "asc src/index.ts --config asconfig.json --target otc-escrow",
+        "build:vesting": "asc src/index-vesting.ts --config asconfig.json --target vesting-vault",
+        "build:nosmile": "asc src/index-nosmile.ts --config asconfig.json --target nosmile",
+        "build:nft-escrow": "asc src/index-nft-escrow.ts --config asconfig.json --target nft-escrow",
+        "build:autovault": "asc src/index-autovault.ts --config asconfig.json --target auto-vault",
+        "build:all": "npm run build && npm run build:vesting && npm run build:nosmile && npm run build:nft-escrow && npm run build:autovault",
+        "deploy:autovault": "node deploy-autovault.mjs",
+        "lint": "eslint src",
+        "clean": "rm -rf build/*"
+    },
+    "dependencies": {
+        "@btc-vision/as-bignum": "0.1.2",
+        "@btc-vision/btc-runtime": "rc"
+    },
+    "devDependencies": {
+        "@btc-vision/assemblyscript": "^0.29.2",
+        "@btc-vision/opnet-transform": "1.1.0",
+        "@noble/hashes": "^2.0.0",
+        "eslint": "^10.0.0",
+        "@eslint/js": "^10.0.1",
+        "typescript-eslint": "^8.56.0"
+    }
+}

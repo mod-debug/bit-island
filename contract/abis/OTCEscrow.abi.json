@@ -1,0 +1,130 @@
+{
+    "functions": [
+        {
+            "name": "createOffer",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "offeredToken",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "offeredAmount",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "wantedToken",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "wantedAmount",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "offerId",
+                    "type": "UINT256"
+                }
+            ]
+        },
+        {
+            "name": "acceptOffer",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "offerId",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "BOOL"
+                }
+            ]
+        },
+        {
+            "name": "cancelOffer",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "offerId",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "success",
+                    "type": "BOOL"
+                }
+            ]
+        },
+        {
+            "name": "getOffer",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [
+                {
+                    "name": "offerId",
+                    "type": "UINT256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "creator",
+                    "type": "EXTENDED_ADDRESS"
+                },
+                {
+                    "name": "acceptor",
+                    "type": "EXTENDED_ADDRESS"
+                },
+                {
+                    "name": "offeredToken",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "offeredAmount",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "wantedToken",
+                    "type": "ADDRESS"
+                },
+                {
+                    "name": "wantedAmount",
+                    "type": "UINT256"
+                },
+                {
+                    "name": "status",
+                    "type": "UINT8"
+                },
+                {
+                    "name": "createdAt",
+                    "type": "UINT32"
+                }
+            ]
+        },
+        {
+            "name": "getNextOfferId",
+            "type": "Function",
+            "payable": false,
+            "onlyOwner": false,
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "nextId",
+                    "type": "UINT256"
+                }
+            ]
+        }
+    ],
+    "events": []
+}
