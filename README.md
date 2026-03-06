@@ -2,7 +2,7 @@
 
 **VibeCode Finance Challenge Submission**
 
-Live site: https://bit-island-i08g2pj5h-bigs-projects-96c4ec25.vercel.app
+Live site: https://btcmonkeys-pz59souj3-bigs-projects-96c4ec25.vercel.app
 
 ---
 
